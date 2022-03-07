@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<!-- saved from url=(0036)http://127.0.0.1:8000/edit-author/41 -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="5g1xBPctGBvgubko7kNcff7uqwtO2V9UkIM7A27D">
+
+    <title>book friends</title>
+    <link rel="icon" type="image/x-icon" href="http://127.0.0.1:8000/assets/images/favicon.svg">
+
+   <link href="./book friends_files/bootstrap.min.css" rel="stylesheet">
+
+ <link rel="dns-prefetch" href="http://fonts.gstatic.com/">
+ <link href="./book friends_files/css2" rel="stylesheet">
+ 
+ <link href="./book friends_files/custom-style.css" rel="stylesheet">
+
+
+    
+</head>
+<body>
+    <div class="w-full">
+        <nav class="navbar navbar-expand-md navbar-light bg-dark shadow">
+    <div class="container">
+        <a class="navbar-brand fw-bold fst-italic text-light" href="http://127.0.0.1:8000/">
+            Book Friends
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <!-- Left Side Of Navbar -->
+            <ul class="navbar-nav me-auto">
+                
+            </ul>
+            
+            <!-- Right Side Of Navbar -->
+            <ul class="navbar-nav ms-auto">
+                <!-- Authentication Links -->
+                                    <li class="nav-item">
+                        <a href="http://127.0.0.1:8000/" class="nav-link text-light fw-bold">home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="http://127.0.0.1:8000/authors" class="nav-link text-light fw-bold">authors</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a id="navbarDropdown" class="nav-link fw-bold text-light dropdown-toggle" href="http://127.0.0.1:8000/edit-author/41#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre="">
+                            admin
+                        </a>
+
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="http://127.0.0.1:8000/logout" onclick="event.preventDefault();
+                                             document.getElementById(&#39;logout-form&#39;).submit();">
+                                Logout
+                            </a>
+
+                            <form id="logout-form" action="http://127.0.0.1:8000/logout" method="POST" class="d-none">
+                                <input type="hidden" name="_token" value="5g1xBPctGBvgubko7kNcff7uqwtO2V9UkIM7A27D">                            </form>
+                        </div>
+                    </li>
+                            </ul>
+        </div>
+    </div>
+</nav>
+        <main class="py-4">
+            <div class="container">
+    <div class="card shadow mb-3">
+        <div class="row g-0">
+        <div class="col-md-4">
+            <img src="./book friends_files/avatar.png" class="img-fluid rounded-start" alt="...">
+        </div>
+        <div class="col-md-8">
+            <div class="card-body mx-4">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h5 class="card-title fw-bold fst-italic">Elsid Miraka</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">elssidmiraka@gmail.com</h6>
+                    </div>
+                    <p class="card-text text-muted"> phone: <span class="fst-italic fw-bold">+355698986152</span></p>
+                </div>
+                <p class="card-text">
+                    Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+                    when an unknown printer took a galley of type and scrambled it to make a type
+                    specimen book. It has survived not only five centuries, but also the leap into
+                    electronic typesetting, remaining essentially unchanged.
+                </p>
+                <p class="card-text"><small class="text-muted">Authors place of birth and birthdate</small></p>
+            
+
+
+
+
+                <form action="http://127.0.0.1:8000/edit-author/41" method="POST" class="row g-3">
+                    <input type="hidden" name="_token" value="5g1xBPctGBvgubko7kNcff7uqwtO2V9UkIM7A27D">                    <div class="col-md-6">
+                        <label for="first_name" class="form-label">First name</label>
+                        <input type="text" class="form-control" id="first_name" name="first_name" value="Elsid">
+                                            </div>
+                    <div class="col-md-6">
+                        <label for="last_name" class="form-label">Last name</label>
+                        <input type="text" class="form-control" id="last_name" name="last_name" value="Miraka">
+                                            </div>
+                    <div class="col-md-6">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" value="elssidmiraka@gmail.com">
+                                            </div>
+                    <div class="col-md-6">
+                        <label for="inputPassword4" class="form-label">Phone</label>
+                        <input type="tel" class="form-control" id="phone" name="phone" value="+355698986152">
+                                            </div>
+                    <div class="col-12 text-end">
+                      <button type="submit" class="btn btn-success">Save changes</button>
+                    </div>
+                  </form>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+        </main>
+
+        <footer class="container-fluid bg-dark">
+    <div class="text-center py-3">
+        <h6 class="text-light fw-bold mb-0">Copyright©bookfriends.com. All rights reserved.</h6>
+    </div>
+</footer>    </div>
+
+    <!-- Scripts -->
+<script src="./book friends_files/bootstrap.bundle.min.js" defer=""></script>
+
+
+</body></html>
