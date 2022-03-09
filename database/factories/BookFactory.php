@@ -18,7 +18,7 @@ class BookFactory extends Factory
             'author_id'   => Author::factory(),
             'title'       => $this->faker->word(),
             'price'       => $this->faker->numberBetween($min = 0, $max = 1000),
-            'image_path'  => $this->faker->imageUrl($width = 100, $height = 100),
+            'image'  => $this->faker->imageUrl($width = 100, $height = 100),
             'description' => $this->faker->sentence(),
         ];
     }

@@ -10,8 +10,8 @@
     <div class="card shadow">
         <div class="p-4">
             <div class="d-flex justify-content-between align-items-baseline pb-2">
-                <h5 class="fw-bold">Authors table</h5>
-                <a href="#" type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#create-author">Add Author</a>
+                <h5 class="fw-bold">Books table</h5>
+                <a href="#" type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#create-book">Add Book</a>
             </div>
             <table class="table">
                 <thead>
@@ -30,16 +30,35 @@
                         <td><a href="{{ route('book.details', $book->id) }}">#{{ $book->id}}</a></td>
                         <td>{{ $book->title }}</td>
                         <td><a href="{{ route('author.details', $book->author_id) }}">{{ $book->author->first_name}} {{ $book->author->last_name}}</a></td>
-                        <td><img src="{{ $book->image_path }}" alt="img" style="width: 50px;"></td>
+                        <td><img src="{{ asset('assets/images/'.$book->image) }}" alt="img" style="width: 50px;"></td>
                         <td>{{ $book->description}}</td>
                         <td>
                             <div class="d-flex justify-content-end">
-                                <a href="#">
-                                    <i class="fa-solid fa-trash-can text-danger"></i>
-                                </a>
-                                {{-- <a href="{{ route('book.edit', $book->id )}}" type="button" class="px-3">
-                                    <i class="fa-solid fa-pen-to-square text-warning"></i>
-                                </a> --}}
+                                @if ($book->trashed())
+                                    <form action="{{ route('book.restore', $book->id) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="btn btn-danger btn-sm me-2" onclick="return confirm('Are you sure?')">
+                                            Restore
+                                        </button>
+                                    </form>
+                                    <form action="{{ route('book.force_delete', $book->id) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="btn btn-danger btn-sm me-2" onclick="return confirm('Are you sure?')">
+                                            Delete Forever
+                                        </button>
+                                    </form>
+                                @else    
+                                    <form action="{{ route('book.delete', $book->id) }}" method="POST">
+                                        @method('delete')
+                                        @csrf
+                                        <button type="submit" class="btn btn-danger btn-sm me-2" onclick="return confirm('Are you sure?')">
+                                            Delete
+                                        </button>
+                                    </form>
+                                    <a href="{{ route('book.edit', $book->id )}}" type="button" class="btn btn-warning btn-sm">
+                                        Edit
+                                    </a>
+                                @endif
                             </div>
                         </td>
                     </tr>
@@ -57,48 +76,69 @@
 </div>
 
   
-  <!--Create author Modal -->
-{{-- <div class="modal fade" id="create-author" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <!--Create book Modal -->
+<div class="modal fade" id="create-book" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Add new author</h5>
+                <h5 class="modal-title" id="staticBackdropLabel">Add new book</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="{{ route('author.save') }}" method="POST">
+            <form action="{{ route('book.save') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label for="first_name" class="form-label">First name</label>
-                        <input type="text" class="form-control" id="first_name" name="first_name" value="{{ old('first_name') }}" required>
-                        @error('first_name')
+                        <label for="title" class="form-label">Title</label>
+                        <input type="text" class="form-control" id="title" name="title" value="{{ old('title') }}" required>
+                        @error('title')
                             <label class="error text-danger" role="alert">
                                 <strong>{{ $message }}</strong>
                             </label>
                         @enderror
                     </div>
                     <div class="mb-3">
-                        <label for="last_name" class="form-label">Last name</label>
-                        <input type="text" class="form-control" id="last_name" name="last_name" value="{{ old('last_name') }}" required>
-                        @error('last_name')
+                        <label for="author_id" class="form-label">Author</label>
+                        <select class="form-select" id="mySelect" name="author_id">
+                            @foreach ($authors as $author)
+                                <option value="{{ $author->id }}">
+                                    {{ $author->first_name }} {{ $author->last_name }}
+                                </option>
+                            @endForeach
+                        </select>
+                        @error('author_id')
                             <label class="error text-danger" role="alert">
                                 <strong>{{ $message }}</strong>
                             </label>
                         @enderror
                     </div>
                     <div class="mb-3">
-                        <label for="email" class="form-label">Email address</label>
-                        <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" required>
-                        @error('email')
+                        <label for="price" class="form-label">Price</label>
+                        <div class="input-group">
+                            <span class="input-group-text">$</span>
+                            <span class="input-group-text">0.00</span>
+                            <input type="price" class="form-control" id="price" name="price" value="{{ old('price') }}" required>
+                        </div>
+                        @error('price')
                             <label class="error text-danger" role="alert">
                                 <strong>{{ $message }}</strong>
                             </label>
                         @enderror
                     </div>
                     <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Phone</label>
-                        <input type="tel" class="form-control" id="phone" name="phone" value="{{ old('phone') }}" required>
-                        @error('phone')
+                        <label for="image" class="form-label">Image</label>
+                        <input type="file" class="form-control" id="image" name="image" required>
+                        @error('image')
+                            <label class="error text-danger" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </label>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <div class="form-floating">
+                            <textarea class="form-control" id="floatingTextarea" name="description" required></textarea>
+                        </div>
+                        @error('description')
                             <label class="error text-danger" role="alert">
                                 <strong>{{ $message }}</strong>
                             </label>
@@ -112,6 +152,6 @@
             </form>
         </div>
     </div>
-</div> --}}
+</div>
 
 @endsection

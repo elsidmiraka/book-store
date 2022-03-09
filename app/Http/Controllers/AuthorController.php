@@ -7,9 +7,9 @@ use Illuminate\Validation\Rule;
 use \App\Models\Book;
 use \App\Models\Author;
 
-class HomeController extends Controller
+class AuthorController extends Controller
 {
-    /**
+   /**
      * Create a new controller instance.
      *
      * @return void
@@ -19,16 +19,55 @@ class HomeController extends Controller
         $this->middleware('auth');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function index()
+    public function index(Request $request)
     {
-        $authors = Author::latest()->paginate(10);
+        
+        $authors = Author::latest()
+            // ->when($request->has('archive'), function($query){
+            //     $query->onlyTrashed();
+            // })
+            ->withTrashed()
+            ->paginate(10);
 
         return view('authors', compact('authors'));
+    }
+
+    public function author_details($id){
+
+        //find author with this id and get all datas, if not found throws an error  
+        $author = Author::findOrFail($id);
+
+        //get all books of related author
+        $books = Book::with('author')->where('author_id', $id)->latest()->paginate(6);
+    
+        return view('author-details', compact('books', 'author'));
+    }
+
+    public function destroy($id){
+
+        $author = Author::findOrFail($id);
+
+        $author->delete();
+
+        return redirect()->route('authors.index');
+    }
+
+    public function restore($id){
+
+        $author = Author::onlyTrashed()->findOrFail($id);
+
+        $author->restore();
+
+        return redirect()->route('authors.index');
+    }
+
+    public function forceDelete($id){
+
+        $author = Author::onlyTrashed()->findOrFail($id);
+
+        $author->forceDelete();
+
+        return redirect()->route('authors.index');
     }
 
     public function create_author(Request $request)
@@ -48,7 +87,7 @@ class HomeController extends Controller
         $author->phone = $request->phone;
         $author->save();
 
-        return redirect('/authors')->with('status', 'Author created successfully!');
+        return redirect()->route('authors.index')->with('status', 'Author created successfully!');
     }
 
     public function edit_author($id)
@@ -77,13 +116,6 @@ class HomeController extends Controller
         
         $author->save();
 
-        return redirect('/authors')->with('status', 'Author updated successfully!');
-    }
-
-    public function books()
-    {
-        $books = Book::with('author')->latest()->paginate(10);
-
-        return view('books', compact('books'));
+        return redirect()->route('authors.index')->with('status', 'Author updated successfully!');
     }
 }

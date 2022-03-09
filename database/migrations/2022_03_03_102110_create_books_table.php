@@ -18,10 +18,11 @@ class CreateBooksTable extends Migration
             $table->bigInteger('author_id')->unsigned();
             $table->string('title');
             $table->double('price', 10, 2);
-            $table->string('image_path');
+            $table->string('image');
             $table->text('description');
             $table->timestamps();
             $table->foreign('author_id')->references('id')->on('authors')->onDelete('cascade');
+            $table->softDeletes(); 
         });
     }
 
@@ -33,5 +34,6 @@ class CreateBooksTable extends Migration
     public function down()
     {
         Schema::dropIfExists('books');
+        $table->dropSoftDeletes();
     }
 }

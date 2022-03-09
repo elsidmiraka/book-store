@@ -47,8 +47,11 @@
                             </label>
                         @enderror
                     </div>
-                    <div class="col-12 text-end">
-                      <button type="submit" class="btn btn-success">Save changes</button>
+                    <div class="col-12">
+                        <div class="d-flex justify-content-between align-items-baseline">
+                            <a href="{{ route('authors.index')}}">Back to authors</a>
+                             <button type="submit" class="btn btn-success">Save changes</button>
+                        </div>
                     </div>
                   </form>
             </div>

@@ -20,6 +20,7 @@ class CreateAuthorsTable extends Migration
             $table->string('email')->unique()->nullable();
             $table->string('phone')->nullable();
             $table->timestamps();
+            $table->softDeletes(); 
         });
     }
 
@@ -31,5 +32,6 @@ class CreateAuthorsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('authors');
+        $table->dropSoftDeletes();
     }
 }

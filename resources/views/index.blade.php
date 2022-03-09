@@ -6,7 +6,7 @@
         @foreach ($books as $book)
             <div class="col">
                 <div class="card shadow h-100">
-                    <img src="{{ $book->image_path }}" class="card-img-top px-5 py-4" alt="book">
+                    <img src="{{ asset('assets/images/'.$book->image) }}" class="card-img-top px-5 py-4 mx-auto img" alt="book">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-baseline">
                             <div>
@@ -27,13 +27,8 @@
                             {{ $book->description }}
                         </p>
                         <div class="d-flex justify-content-between align-items-baseline">
-                            @guest
-                                <h5 class="text-muted">${{ $book->price }}</h5>
-                                <a href="#" class="btn btn-sm btn-success">Add to cart</a>
-                            @else
-                                <a href="#" class="btn btn-sm btn-warning">Edit</a>
-                                <a href="#" class="btn btn-sm btn-danger">Delete</a>
-                            @endguest
+                            <h5 class="text-muted">${{ $book->price }}</h5>
+                            <a href="#" class="btn btn-sm btn-success">Add to cart</a>
                         </div>
                     </div>
                 </div>

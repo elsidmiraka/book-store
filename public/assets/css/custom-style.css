@@ -15,3 +15,7 @@ footer {
     bottom: -4rem;
     margin-top: 2rem;
 }
+.img{
+    max-width: 350px;
+    min-height: 250px;
+}

@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-md navbar-light bg-dark shadow">
     <div class="container">
         <a class="navbar-brand fw-bold fst-italic text-light" href="{{ route('index') }}">
-            Book Friends
+            Book Store
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
             <span class="navbar-toggler-icon"></span>

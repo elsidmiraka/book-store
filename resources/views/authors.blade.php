@@ -34,12 +34,31 @@
                         <td>{{ $author->phone}}</td>
                         <td>
                             <div class="d-flex justify-content-end">
-                                <a href="#">
-                                    <i class="fa-solid fa-trash-can text-danger"></i>
-                                </a>
-                                <a href="{{ route('author.edit', $author->id )}}" type="button" class="px-3">
-                                    <i class="fa-solid fa-pen-to-square text-warning"></i>
-                                </a>
+                                @if ($author->trashed())
+                                    <form action="{{ route('author.restore', $author->id) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="btn btn-danger btn-sm me-2" onclick="return confirm('Are you sure?')">
+                                            Restore
+                                        </button>
+                                    </form>
+                                    <form action="{{ route('author.force_delete', $author->id) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="btn btn-danger btn-sm me-2" onclick="return confirm('Are you sure?')">
+                                            Delete Forever
+                                        </button>
+                                    </form>
+                                @else    
+                                    <form action="{{ route('author.delete', $author->id) }}" method="POST">
+                                        @method('delete')
+                                        @csrf
+                                        <button type="submit" class="btn btn-danger btn-sm me-2" onclick="return confirm('Are you sure?')">
+                                            Delete
+                                        </button>
+                                    </form>
+                                    <a href="{{ route('author.edit', $author->id )}}" type="button" class="btn btn-warning btn-sm">
+                                        Edit
+                                    </a>
+                                @endif
                             </div>
                         </td>
                     </tr>

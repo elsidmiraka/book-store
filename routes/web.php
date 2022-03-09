@@ -14,14 +14,36 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [App\Http\Controllers\DisplayController::class, 'index'])->name('index');
-Route::get('/author-details/{id}', [App\Http\Controllers\DisplayController::class, 'author_details'])->name('author.details');
-Route::get('/book-details/{id}', [App\Http\Controllers\DisplayController::class, 'book_details'])->name('book.details');
 
 //remove ability to register
 Auth::routes(['register' => false]);
 
-Route::get('/authors', [App\Http\Controllers\HomeController::class, 'index'])->name('authors.index');
-Route::post('/create-author', [App\Http\Controllers\HomeController::class, 'create_author'])->name('author.save');
-Route::get('/edit-author/{id}', [App\Http\Controllers\HomeController::class, 'edit_author'])->name('author.edit');
-Route::post('/edit-author/{id}', [App\Http\Controllers\HomeController::class, 'update_author'])->name('author.update');
-Route::get('/books', [App\Http\Controllers\HomeController::class, 'books'])->name('books.index');
+Route::controller(App\Http\Controllers\AuthorController::class)->group(function () {
+    Route::get('/authors', 'index')->name('authors.index');
+
+    Route::name('author.')->group(function() {
+        Route::get('/author-details/{id}', 'author_details')->name('details');
+        Route::post('/create-author', 'create_author')->name('save');
+        Route::get('/edit-author/{id}', 'edit_author')->name('edit');
+        Route::post('/edit-author/{id}', 'update_author')->name('update');
+
+        Route::delete('/author/{id}/delete', 'destroy')->name('delete');
+        Route::post('/author/{id}/restore', 'restore')->name('restore');
+        Route::post('/author/{id}/force_delete', 'forceDelete')->name('force_delete');
+    });
+});
+
+Route::controller(App\Http\Controllers\BookController::class)->group(function () {
+    Route::get('/books', 'index')->name('books.index');
+
+    Route::name('book.')->group(function() {
+        Route::get('/book-details/{id}', 'book_details')->name('details');
+        Route::post('/create-book', 'create_book')->name('save');
+        Route::get('/edit-book/{id}', 'edit_book')->name('edit');
+        Route::post('/edit-book/{id}', 'update_book')->name('update');
+
+        Route::delete('/book/{id}/delete', 'destroy')->name('delete');
+        Route::post('/book/{id}/restore', 'restore')->name('restore');
+        Route::post('/book/{id}/force_delete', 'forceDelete')->name('force_delete');
+    });
+});
