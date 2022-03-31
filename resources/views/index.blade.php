@@ -6,7 +6,8 @@
         @foreach ($books as $book)
             <div class="col">
                 <div class="card shadow h-100">
-                    <img src="{{ asset('assets/images/'.$book->image) }}" class="card-img-top px-5 py-4 mx-auto img" alt="book">
+                    {{-- <img src="{{ asset('assets/images/'.$book->image) }}" class="card-img-top px-5 py-4 mx-auto img" alt="book"> --}}
+                    <img src="{{ asset('assets/images/book.png') }}" class="card-img-top px-5 py-4 mx-auto img" alt="book">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-baseline">
                             <div>

@@ -5,7 +5,7 @@
         <div class="row g-0">
           <div class="col-md-6 my-auto">
               <div class="text-center">
-                  <img src="{{ asset('assets/images/'.$book->image) }}" class="img-fluid rounded-start" alt="...">
+                  <img src="{{ asset('assets/images/book.png') }}" class="img-fluid rounded-start" style="max-width: 300px;" alt="...">
               </div>
           </div>
           <div class="col-md-6">

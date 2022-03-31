@@ -30,7 +30,10 @@
                         <td><a href="{{ route('book.details', $book->id) }}">#{{ $book->id}}</a></td>
                         <td>{{ $book->title }}</td>
                         <td><a href="{{ route('author.details', $book->author_id) }}">{{ $book->author->first_name}} {{ $book->author->last_name}}</a></td>
-                        <td><img src="{{ asset('assets/images/'.$book->image) }}" alt="img" style="width: 50px;"></td>
+                        <td>
+                            {{-- <img src="{{ asset('assets/images/'.$book->image) }}" alt="img" style="width: 50px;"> --}}
+                            <img src="{{ asset('assets/images/book.png') }}" alt="img" style="width: 50px;">
+                        </td>
                         <td>{{ $book->description}}</td>
                         <td>
                             <div class="d-flex justify-content-end">
